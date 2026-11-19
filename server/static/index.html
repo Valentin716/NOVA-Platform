@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Monitoreo Remoto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans min-h-screen p-6">
+
+    <header class="flex justify-between items-center border-b border-slate-800 pb-4 mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-indigo-400">NetMonitor SOC</h1>
+            <p class="text-sm text-slate-400">Panel de Administración Remota</p>
+        </div>
+        <span id="status-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            Servidor Activo
+        </span>
+    </header>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg" data-pc="PC-1">
+            <div class="p-3 bg-slate-800/50 flex justify-between items-center">
+                <span class="font-semibold text-sm">PC-1</span>
+                <span class="w-2 h-2 rounded-full bg-slate-500" id="dot-PC-1"></span>
+            </div>
+            <div class="aspect-video bg-black flex items-center justify-center relative">
+                <img id="screen-PC-1" class="w-full h-full object-contain hidden" alt="Pantalla PC-1">
+                <span id="ph-PC-1" class="text-xs text-slate-600">Sin conexión</span>
+            </div>
+            <div class="p-3 grid grid-cols-2 gap-2 text-xs">
+                <button onclick="cmd('PC-1', 'bloquear_input')" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 py-1.5 rounded border border-amber-600/30">Bloquear Periféricos</button>
+                <button onclick="cmd('PC-1', 'desbloquear_input')" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 py-1.5 rounded border border-emerald-600/30">Desbloquear</button>
+                <button onclick="pedirWebModal('PC-1')" class="bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 py-1.5 rounded border border-indigo-600/30">Bloquear Web</button>
+                <button onclick="cmd('PC-1', 'denegar_ping')" class="bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 py-1.5 rounded border border-cyan-600/30">Denegar Ping</button>
+                <button onclick="cmd('PC-1', 'permitir_ping')" class="bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 py-1.5 rounded border border-sky-600/30">Permitir Ping</button>
+                <button onclick="cmd('PC-1', 'apagar')" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 py-1.5 rounded border border-rose-600/30 font-semibold">Apagar PC</button>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg" data-pc="PC-2">
+            <div class="p-3 bg-slate-800/50 flex justify-between items-center">
+                <span class="font-semibold text-sm">PC-2</span>
+                <span class="w-2 h-2 rounded-full bg-slate-500" id="dot-PC-2"></span>
+            </div>
+            <div class="aspect-video bg-black flex items-center justify-center relative">
+                <img id="screen-PC-2" class="w-full h-full object-contain hidden" alt="Pantalla PC-2">
+                <span id="ph-PC-2" class="text-xs text-slate-600">Sin conexión</span>
+            </div>
+            <div class="p-3 grid grid-cols-2 gap-2 text-xs">
+                <button onclick="cmd('PC-2', 'bloquear_input')" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 py-1.5 rounded border border-amber-600/30">Bloquear Periféricos</button>
+                <button onclick="cmd('PC-2', 'desbloquear_input')" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 py-1.5 rounded border border-emerald-600/30">Desbloquear</button>
+                <button onclick="pedirWebModal('PC-2')" class="bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 py-1.5 rounded border border-indigo-600/30">Bloquear Web</button>
+                <button onclick="cmd('PC-2', 'denegar_ping')" class="bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 py-1.5 rounded border border-cyan-600/30">Denegar Ping</button>
+                <button onclick="cmd('PC-2', 'permitir_ping')" class="bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 py-1.5 rounded border border-sky-600/30">Permitir Ping</button>
+                <button onclick="cmd('PC-2', 'apagar')" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 py-1.5 rounded border border-rose-600/30 font-semibold">Apagar PC</button>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg" data-pc="PC-3">
+            <div class="p-3 bg-slate-800/50 flex justify-between items-center">
+                <span class="font-semibold text-sm">PC-3</span>
+                <span class="w-2 h-2 rounded-full bg-slate-500" id="dot-PC-3"></span>
+            </div>
+            <div class="aspect-video bg-black flex items-center justify-center relative">
+                <img id="screen-PC-3" class="w-full h-full object-contain hidden" alt="Pantalla PC-3">
+                <span id="ph-PC-3" class="text-xs text-slate-600">Sin conexión</span>
+            </div>
+            <div class="p-3 grid grid-cols-2 gap-2 text-xs">
+                <button onclick="cmd('PC-3', 'bloquear_input')" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 py-1.5 rounded border border-amber-600/30">Bloquear Periféricos</button>
+                <button onclick="cmd('PC-3', 'desbloquear_input')" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 py-1.5 rounded border border-emerald-600/30">Desbloquear</button>
+                <button onclick="pedirWebModal('PC-3')" class="bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 py-1.5 rounded border border-indigo-600/30">Bloquear Web</button>
+                <button onclick="cmd('PC-3', 'denegar_ping')" class="bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 py-1.5 rounded border border-cyan-600/30">Denegar Ping</button>
+                <button onclick="cmd('PC-3', 'permitir_ping')" class="bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 py-1.5 rounded border border-sky-600/30">Permitir Ping</button>
+                <button onclick="cmd('PC-3', 'apagar')" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 py-1.5 rounded border border-rose-600/30 font-semibold">Apagar PC</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col h-64">
+            <h2 class="text-sm font-semibold text-slate-300 mb-2">Chat Bidireccional</h2>
+            <div id="chat-box" class="flex-1 overflow-y-auto space-y-2 text-xs bg-slate-950 p-3 rounded mb-3 border border-slate-800"></div>
+            <div class="flex gap-2">
+                <select id="chat-target" class="bg-slate-800 text-xs rounded px-2 border border-slate-700">
+                    <option value="PC-1">PC-1</option>
+                    <option value="PC-2">PC-2</option>
+                    <option value="PC-3">PC-3</option>
+                </select>
+                <input type="text" id="chat-input" placeholder="Escribe un mensaje..." class="flex-1 bg-slate-800 text-xs rounded px-3 py-2 border border-slate-700 focus:outline-none">
+                <button onclick="enviarChat()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2 rounded font-medium">Enviar</button>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col h-64">
+            <h2 class="text-sm font-semibold text-slate-300 mb-2">Actividad del Servidor (Logs en Vivo)</h2>
+            <div id="server-logs" class="flex-1 overflow-y-auto font-mono text-xs text-emerald-400 bg-slate-950 p-3 rounded border border-slate-800 space-y-1"></div>
+        </div>
+    </section>
+
+    <script>
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const ws = new WebSocket(`${protocol}//${window.location.host}/ws/admin`);
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.tipo === "log") {
+                agregarLog(data.mensaje);
+            } else if (data.tipo === "init") {
+                data.logs.forEach(agregarLog);
+                actualizarConectados(data.pcs);
+            } else if (data.tipo === "estado_pcs") {
+                actualizarConectados(data.pcs);
+            } else if (data.tipo === "pantalla") {
+                const img = document.getElementById(`screen-${data.pc_id}`);
+                const ph = document.getElementById(`ph-${data.pc_id}`);
+                if (img && ph) {
+                    img.src = `data:image/jpeg;base64,${data.imagen}`;
+                    img.classList.remove("hidden");
+                    ph.classList.add("hidden");
+                }
+            } else if (data.tipo === "chat") {
+                const box = document.getElementById("chat-box");
+                box.innerHTML += `<div><span class="text-indigo-400 font-bold">[${data.pc_id}]:</span> ${data.mensaje}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }
+        };
+
+        function actualizarConectados(pcs) {
+            ["PC-1", "PC-2", "PC-3"].forEach((id) => {
+                const dot = document.getElementById(`dot-${id}`);
+                const img = document.getElementById(`screen-${id}`);
+                const ph = document.getElementById(`ph-${id}`);
+                if (pcs.includes(id)) {
+                    dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+                } else {
+                    dot.className = "w-2 h-2 rounded-full bg-slate-500";
+                    if (img && ph) {
+                        img.classList.add("hidden");
+                        ph.classList.remove("hidden");
+                        ph.textContent = "Sin conexión";
+                    }
+                }
+            });
+        }
+
+        function cmd(pcId, accion, extra = {}) {
+            ws.send(JSON.stringify({ pc_id: pcId, accion, ...extra }));
+        }
+
+        function pedirWebModal(pcId) {
+            const dominio = prompt("Ingresa el dominio a bloquear (ej. facebook.com):");
+            if (dominio && dominio.trim()) {
+                cmd(pcId, "bloquear_web", { dominio: dominio.trim() });
+            }
+        }
+
+        function enviarChat() {
+            const pcId = document.getElementById("chat-target").value;
+            const input = document.getElementById("chat-input");
+            const texto = input.value.trim();
+            if (!texto) return;
+            cmd(pcId, "chat", { mensaje: texto });
+            const box = document.getElementById("chat-box");
+            box.innerHTML += `<div><span class="text-emerald-400 font-bold">[Admin -> ${pcId}]:</span> ${texto}</div>`;
+            box.scrollTop = box.scrollHeight;
+            input.value = "";
+        }
+
+        function agregarLog(texto) {
+            const logs = document.getElementById("server-logs");
+            logs.innerHTML += `<div>${texto}</div>`;
+            logs.scrollTop = logs.scrollHeight;
+        }
+    </script>
+</body>
+</html>
