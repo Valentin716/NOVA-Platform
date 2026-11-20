@@ -8,7 +8,7 @@ import subprocess
 import sys
 import websockets
 
-SERVER_URL = os.getenv("MONITOR_SERVER_URL", "ws://127.0.0.1:8000")
+SERVER_URL = os.getenv("MONITOR_SERVER_URL", "wss://nova-platform-id56.onrender.com")
 PC_ID = os.getenv("MONITOR_PC_ID", "PC-1")
 
 try:
@@ -135,7 +135,7 @@ async def conectar_agente():
     while True:
         task_screen = None
         try:
-            async with websockets.connect(uri) as websocket:
+            async with websockets.connect(uri, ping_interval=20, ping_timeout=20) as websocket:
                 print(f"Conectado exitosamente a {uri} como {PC_ID}")
                 task_screen = asyncio.create_task(enviar_pantalla(websocket))
 
